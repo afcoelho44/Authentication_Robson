@@ -25,13 +25,18 @@ public class JwtFilter extends OncePerRequestFilter {
         String username = null;
         String jwt = null;
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+        System.out.println("===== JwtFilter ativado =====");
+        System.out.println("Authorization Header: " + authHeader);
+
+        if (authHeader != null && authHeader.startsWith("Bearer")) {
             jwt = authHeader.substring(7);
             username = jwtUtil.extractUsername(jwt);
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             if(jwtUtil.validateToken(jwt)){
+                System.out.println("Token válido para usuário: " + username);
+
                 UsernamePasswordAuthenticationToken authToken =
                         new UsernamePasswordAuthenticationToken(username, null,null);
 

@@ -24,15 +24,24 @@ public class JwtUtil {
             .compact();
     }
     public boolean validateToken(String token) {
-        try{
+        try {
             Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token);
+            System.out.println("Token válido.");
             return true;
         } catch (Exception e) {
+            System.out.println("Token inválido: " + e.getMessage());
             return false;
         }
     }
 
     public String extractUsername(String token) {
-        return Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody().getSubject();
+        try {
+            String username = Jwts.parser().setSigningKey(SECRET).parseClaimsJws(token).getBody().getSubject();
+            System.out.println("Extraído username: " + username);
+            return username;
+        } catch (Exception e) {
+            System.out.println("Erro ao extrair username: " + e.getMessage());
+            return null;
+        }
     }
 }
