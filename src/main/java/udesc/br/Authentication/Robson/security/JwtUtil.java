@@ -12,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class JwtUtil {
 
-    private final String SECRET = "secreta";
+    private final String SECRET = "robson";
     private final long EXPIRATION_TIME = 1000 * 60 * 60;
 
     public String genereteToken(String username) {
